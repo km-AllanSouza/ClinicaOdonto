@@ -84,9 +84,10 @@ public class PacienteDAOH2 implements IDao <Paciente> {
 
     private Paciente criarObjetoProduto(ResultSet rs) throws SQLException {
 
+        Integer id = rs.getInt("idPaciente");
         String nome = rs.getString("nome");
         String sobrenome = rs.getString("sobrenome");
-        return new Paciente(nome, sobrenome);
+        return new Paciente(id, nome, sobrenome);
 
     }
 }

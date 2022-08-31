@@ -28,7 +28,8 @@ public class Paciente {
         this.dataCadastro = dataCadastro;
     }
 
-    public Paciente(String nome, String sobrenome) {
+    public Paciente(Integer id, String nome, String sobrenome) {
+        this.id = id;
         this.nome = nome;
         this.sobrenome = sobrenome;
     }
