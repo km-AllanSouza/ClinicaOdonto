@@ -2,6 +2,7 @@ package com.clinicaOdontologica.ClinicaOdonto.dao;
 
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.springframework.context.annotation.Configuration;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

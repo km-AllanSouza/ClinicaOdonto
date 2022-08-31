@@ -7,7 +7,7 @@ public interface IDao <T>{
 
     T salvar(T t) throws SQLException;
 
-    List<T> buscar() throws SQLException;
+    List<T> buscarTodos() throws SQLException;
 
     void alterar(T t) throws SQLException;
 

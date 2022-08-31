@@ -2,11 +2,9 @@ CREATE TABLE IF NOT EXISTS PACIENTES (
 idPaciente int auto_increment primary key,
 nome varchar(100) NOT NULL,
 sobrenome varchar(100) NOT NULL,
-endereco varchar(100) NOT NULL,
+endereco int,
 cpf varchar(100) NOT NULL,
-dataCadastro date NOT NULL,
-
-CONSTRAINT FK_idEndereco FOREIGN KEY (endereco) REFERENCES ENDERECOS (idEndereco)
+dataCadastro varchar(20)
 );
 
 CREATE TABLE IF NOT EXISTS DENTISTAS (

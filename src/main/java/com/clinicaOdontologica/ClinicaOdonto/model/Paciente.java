@@ -16,15 +16,20 @@ public class Paciente {
     private int id;
     private String nome;
     private String sobrenome;
-    private Endereco endereco;
+    private int endereco;
     private String cpf;
-    private LocalDateTime dataCadastro;
+    private String dataCadastro;
 
-    public Paciente(String nome, String sobrenome, Endereco endereco, String cpf, LocalDateTime dataCadastro) {
+    public Paciente(String nome, String sobrenome, int endereco, String cpf, String dataCadastro) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.endereco = endereco;
         this.cpf = cpf;
         this.dataCadastro = dataCadastro;
+    }
+
+    public Paciente(String nome, String sobrenome) {
+        this.nome = nome;
+        this.sobrenome = sobrenome;
     }
 }
