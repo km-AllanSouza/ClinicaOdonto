@@ -2,7 +2,7 @@ package com.clinicaOdontologica.ClinicaOdonto.dao.impl;
 
 import com.clinicaOdontologica.ClinicaOdonto.dao.ConfigurationJDBC;
 import com.clinicaOdontologica.ClinicaOdonto.dao.IDao;
-import com.clinicaOdontologica.ClinicaOdonto.model.Paciente;
+import com.clinicaOdontologica.ClinicaOdonto.model.Dentista;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Configuration;
@@ -15,17 +15,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
-public class PacienteDAOH2 implements IDao <Paciente> {
-
+public class DentistaDAOH2 implements IDao<Dentista> {
     private static final Logger logger = LogManager.getLogger(PacienteDAOH2.class);
 
     ConfigurationJDBC configurationJDBC = new ConfigurationJDBC("org.h2.Driver", "jdbc:h2:~/ClinicaOdonto;INIT=RUNSCRIPT FROM 'create.sql'", "sa", "");
     Connection connection = null;
 
+
     @Override
-    public Paciente salvar(Paciente paciente) throws SQLException {
-        String SQLINSERT = String.format("INSERT INTO PACIENTES (nome, sobrenome, endereco, cpf, dataCadastro) VALUES('%s','%s','%s','%s','%s')",
-                paciente.getNome(), paciente.getSobrenome(), paciente.getEndereco(), paciente.getCpf(), paciente.getDataCadastro());
+    public Dentista salvar(Dentista dentista) throws SQLException {
+        String SQLINSERT = String.format("INSERT INTO DENTISTAS (nome, sobrenome, matricula) VALUES('%s','%s','%s')",
+                dentista.getNome(), dentista.getSobrenome(), dentista.getMatricula());
 
         try {
             connection = configurationJDBC.getConnection();
@@ -37,7 +37,7 @@ public class PacienteDAOH2 implements IDao <Paciente> {
             logger.info("dados inseridos com sucesso");
 
             if(rs.next()){
-                paciente.setId(rs.getInt(1));
+                dentista.setId(rs.getInt(1));
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -46,21 +46,21 @@ public class PacienteDAOH2 implements IDao <Paciente> {
             logger.info("fechando conexao");
 
         }
-        return paciente;
+        return dentista;
     }
 
     @Override
-    public List<Paciente> buscarTodos() throws SQLException {
-        String SQLQUERY = "SELECT * FROM PACIENTES";
-        List<Paciente> pacienteList = new ArrayList<>();
-
+    public List<Dentista> buscarTodos() throws SQLException {
+        String SQLQUERY = "SELECT * FROM DENTISTAS";
+        List<Dentista> dentistaList = new ArrayList<>();
         try {
             connection = configurationJDBC.getConnection();
             Statement stmt = connection.createStatement();
+
             ResultSet rs = stmt.executeQuery(SQLQUERY);
 
             while (rs.next()){
-                pacienteList.add(criarObjetoProduto(rs));
+                dentistaList.add(criarObjetoDentista(rs));
             }
 
         } catch (SQLException e) {
@@ -68,12 +68,11 @@ public class PacienteDAOH2 implements IDao <Paciente> {
         } finally {
             connection.close();
         }
-
-        return pacienteList;
+        return dentistaList;
     }
 
     @Override
-    public void alterar(Paciente paciente) throws SQLException {
+    public void alterar(Dentista dentista) throws SQLException {
 
     }
 
@@ -82,13 +81,11 @@ public class PacienteDAOH2 implements IDao <Paciente> {
 
     }
 
-    private Paciente criarObjetoProduto(ResultSet rs) throws SQLException {
+    public Dentista criarObjetoDentista(ResultSet rs) throws SQLException {
+        Integer id = rs.getInt(1);
+        String nome = rs.getString(2);
+        String sobrenome = rs.getString(3);
 
-        Integer id = rs.getInt("idPaciente");
-        String nome = rs.getString("nome");
-        String sobrenome = rs.getString("sobrenome");
-        String cpf = rs.getString("cpf");
-        return new Paciente(id, nome, sobrenome, cpf);
-
+        return new Dentista(id, nome, sobrenome);
     }
 }

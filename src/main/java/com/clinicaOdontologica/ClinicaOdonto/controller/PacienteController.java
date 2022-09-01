@@ -1,6 +1,7 @@
 package com.clinicaOdontologica.ClinicaOdonto.controller;
 
 import com.clinicaOdontologica.ClinicaOdonto.model.Paciente;
+import com.clinicaOdontologica.ClinicaOdonto.model.dto.PacienteDTO;
 import com.clinicaOdontologica.ClinicaOdonto.service.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ public class PacienteController {
     }
 
     @GetMapping
-    public List<Paciente> buscarPacientes() throws SQLException {
+    public List<PacienteDTO> buscarPacientes() throws SQLException {
         return service.buscarTodos();
     }
 

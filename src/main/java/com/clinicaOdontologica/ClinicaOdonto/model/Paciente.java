@@ -28,10 +28,11 @@ public class Paciente {
         this.dataCadastro = dataCadastro;
     }
 
-    public Paciente(Integer id, String nome, String sobrenome) {
+    public Paciente(Integer id, String nome, String sobrenome, String cpf) {
         this.id = id;
         this.nome = nome;
         this.sobrenome = sobrenome;
+        this.cpf = cpf;
     }
 
 

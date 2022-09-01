@@ -16,9 +16,9 @@ public class Dentista {
     private String sobrenome;
     private String matricula;
 
-    public Dentista(String nome, String sobrenome, String matricula) {
+    public Dentista(int id, String nome, String sobrenome) {
+        this.id = id;
         this.nome = nome;
         this.sobrenome = sobrenome;
-        this.matricula = matricula;
     }
 }
