@@ -2,6 +2,7 @@ package com.clinicaOdontologica.ClinicaOdonto.dao;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public interface IDao <T>{
 
@@ -12,4 +13,6 @@ public interface IDao <T>{
     void alterar(T t) throws SQLException;
 
     void excluir(int id) throws SQLException;
+
+    public Optional<T> buscarPorId(int id) throws SQLException;
 }

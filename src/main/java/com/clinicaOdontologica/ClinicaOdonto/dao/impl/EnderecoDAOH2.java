@@ -14,6 +14,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 @Configuration
 public class EnderecoDAOH2 implements IDao<Endereco> {
     private static final Logger logger = LogManager.getLogger(PacienteDAOH2.class);
@@ -55,7 +57,7 @@ public class EnderecoDAOH2 implements IDao<Endereco> {
         String SQLQUERY = "SELECT * FROM ENDERECOS";
         List<Endereco> enderecos = new ArrayList<>();
         try {
-            configurationJDBC = new ConfigurationJDBC("org.h2.Driver","jdbc:h2:~/ClinicaOdonto;INIT=RUNSCRIPT FROM 'create.sql'","sa","");
+            configurationJDBC = new ConfigurationJDBC("org.h2.Driver","jdbc:h2:~/ClinicaOdonto;INIT=RUNSCRIPT FROM 'src/main/resources/create.sql'","sa","");
             connection = configurationJDBC.getConnection();
              stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(SQLQUERY);
@@ -84,6 +86,12 @@ public class EnderecoDAOH2 implements IDao<Endereco> {
     public void excluir(int id) throws SQLException {
 
     }
+
+    @Override
+    public Optional<Endereco> buscarPorId(int id) throws SQLException {
+        return Optional.empty();
+    }
+
     private Endereco criarObjetoEndereco(ResultSet rs) throws SQLException {
 
         Integer id = rs.getInt("idEndereco");

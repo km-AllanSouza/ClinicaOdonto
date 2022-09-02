@@ -13,12 +13,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Configuration
 public class DentistaDAOH2 implements IDao<Dentista> {
     private static final Logger logger = LogManager.getLogger(PacienteDAOH2.class);
 
-    ConfigurationJDBC configurationJDBC = new ConfigurationJDBC("org.h2.Driver", "jdbc:h2:~/ClinicaOdonto;INIT=RUNSCRIPT FROM 'create.sql'", "sa", "");
+    ConfigurationJDBC configurationJDBC = new ConfigurationJDBC("org.h2.Driver", "jdbc:h2:~/ClinicaOdonto;INIT=RUNSCRIPT FROM 'src/main/resources/create.sql'", "sa", "");
     Connection connection = null;
 
 
@@ -81,6 +82,11 @@ public class DentistaDAOH2 implements IDao<Dentista> {
 
     }
 
+    @Override
+    public Optional<Dentista> buscarPorId(int id) throws SQLException {
+        return Optional.empty();
+    }
+
     public Dentista criarObjetoDentista(ResultSet rs) throws SQLException {
         Integer id = rs.getInt(1);
         String nome = rs.getString(2);
@@ -88,4 +94,6 @@ public class DentistaDAOH2 implements IDao<Dentista> {
 
         return new Dentista(id, nome, sobrenome);
     }
+
+
 }

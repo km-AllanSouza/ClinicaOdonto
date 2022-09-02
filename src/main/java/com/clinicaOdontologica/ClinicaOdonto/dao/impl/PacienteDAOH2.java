@@ -13,28 +13,29 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Configuration
 public class PacienteDAOH2 implements IDao <Paciente> {
 
     private static final Logger logger = LogManager.getLogger(PacienteDAOH2.class);
 
-    ConfigurationJDBC configurationJDBC = new ConfigurationJDBC("org.h2.Driver", "jdbc:h2:~/ClinicaOdonto;INIT=RUNSCRIPT FROM 'create.sql'", "sa", "");
+    ConfigurationJDBC configurationJDBC = new ConfigurationJDBC("org.h2.Driver", "jdbc:h2:~/ClinicaOdonto;INIT=RUNSCRIPT FROM 'src/main/resources/create.sql'", "sa", "");
     Connection connection = null;
 
     @Override
     public Paciente salvar(Paciente paciente) throws SQLException {
-        String SQLINSERT = String.format("INSERT INTO PACIENTES (nome, sobrenome, endereco, cpf, dataCadastro) VALUES('%s','%s','%s','%s','%s')",
-                paciente.getNome(), paciente.getSobrenome(), paciente.getEndereco(), paciente.getCpf(), paciente.getDataCadastro());
+        String SQLINSERT = String.format("INSERT INTO PACIENTES (nome, sobrenome, telefone, endereco, cpf, dataCadastro) VALUES('%s','%s','%s','%s','%s','%s')",
+                paciente.getNome(), paciente.getSobrenome(), paciente.getTelefone(), paciente.getEndereco(), paciente.getCpf(), paciente.getDataCadastro());
 
         try {
             connection = configurationJDBC.getConnection();
-            logger.info("conexao aberta");
+            logger.info("CONEXAO ABERTA");
             Statement stmt = connection.createStatement();
 
             stmt.execute(SQLINSERT, stmt.RETURN_GENERATED_KEYS);
             ResultSet rs = stmt.getGeneratedKeys();
-            logger.info("dados inseridos com sucesso");
+            logger.info("PACIENTE INSERIDO COM SUCESSO");
 
             if(rs.next()){
                 paciente.setId(rs.getInt(1));
@@ -43,7 +44,7 @@ public class PacienteDAOH2 implements IDao <Paciente> {
             throw new RuntimeException(e);
         } finally {
             connection.close();
-            logger.info("fechando conexao");
+            logger.info("FECHANDO CONEXAO");
 
         }
         return paciente;
@@ -60,7 +61,7 @@ public class PacienteDAOH2 implements IDao <Paciente> {
             ResultSet rs = stmt.executeQuery(SQLQUERY);
 
             while (rs.next()){
-                pacienteList.add(criarObjetoProduto(rs));
+                pacienteList.add(criarObjetoPaciente(rs));
             }
 
         } catch (SQLException e) {
@@ -74,21 +75,49 @@ public class PacienteDAOH2 implements IDao <Paciente> {
 
     @Override
     public void alterar(Paciente paciente) throws SQLException {
+        String SQLUPDATE = String.format("UPDATE PACIENTES SET telefone = '%s' WHERE idPaciente = '%s';", paciente.getTelefone(), paciente.getId());
+
+        try {
+            connection = configurationJDBC.getConnection();
+            Statement stmt = connection.createStatement();
+            stmt.execute(SQLUPDATE);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            connection.close();
+        }
 
     }
 
     @Override
     public void excluir(int id) throws SQLException {
+        String SQLDELETE = String.format("DELETE FROM PACIENTES WHERE idPaciente = '%s';", id);
+
+        try {
+            connection = configurationJDBC.getConnection();
+            Statement stmt = connection.createStatement();
+            stmt.execute(SQLDELETE);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            connection.close();
+        }
 
     }
+    @Override
+    public Optional<Paciente> buscarPorId(int id) throws SQLException {
+        return Optional.empty();
+    }
 
-    private Paciente criarObjetoProduto(ResultSet rs) throws SQLException {
+    private Paciente criarObjetoPaciente(ResultSet rs) throws SQLException {
 
         Integer id = rs.getInt("idPaciente");
         String nome = rs.getString("nome");
         String sobrenome = rs.getString("sobrenome");
         String cpf = rs.getString("cpf");
         return new Paciente(id, nome, sobrenome, cpf);
-
     }
+
 }

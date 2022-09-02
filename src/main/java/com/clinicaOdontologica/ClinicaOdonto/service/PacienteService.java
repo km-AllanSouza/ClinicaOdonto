@@ -36,5 +36,13 @@ public class PacienteService {
         return pacienteDTOList;
     }
 
+    public void alterar(Paciente paciente) throws SQLException {
+        pacienteDAOH2.alterar(paciente);
+    }
+
+    public void excluir(int id) throws SQLException {
+        pacienteDAOH2.excluir(id);
+    }
+
 
 }

@@ -26,6 +26,16 @@ public class PacienteController {
         return service.buscarTodos();
     }
 
+    @PatchMapping
+    public void alterarPaciente(@RequestBody Paciente paciente) throws SQLException {
+        service.alterar(paciente);
+    }
+
+    @DeleteMapping
+    public void delete(@RequestParam int id) throws SQLException {
+        service.excluir(id);
+    }
+
 
 
 }
