@@ -16,10 +16,12 @@ public class DentistaDTO {
     private int id;
     private String nome;
     private String sobrenome;
+    private String matricula;
 
     public DentistaDTO(Dentista dentista) {
-        this.id = dentista.getId();
+
         this.nome = dentista.getNome();
         this.sobrenome = dentista.getSobrenome();
+        this.matricula = dentista.getMatricula();
     }
 }

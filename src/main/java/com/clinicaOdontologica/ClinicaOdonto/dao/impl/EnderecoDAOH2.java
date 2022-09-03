@@ -18,6 +18,8 @@ import java.util.Optional;
 
 @Configuration
 public class EnderecoDAOH2 implements IDao<Endereco> {
+
+
     private static final Logger logger = LogManager.getLogger(PacienteDAOH2.class);
     ConfigurationJDBC configurationJDBC = new ConfigurationJDBC("org.h2.Driver", "jdbc:h2:~/ClinicaOdonto;INIT=RUNSCRIPT FROM 'create.sql'", "sa", "");
     Connection connection = null;
