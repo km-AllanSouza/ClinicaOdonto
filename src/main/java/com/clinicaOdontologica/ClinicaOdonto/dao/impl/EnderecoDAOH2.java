@@ -19,7 +19,7 @@ import java.util.Optional;
 @Configuration
 public class EnderecoDAOH2 implements IDao<Endereco> {
     private static final Logger logger = LogManager.getLogger(PacienteDAOH2.class);
-    ConfigurationJDBC configurationJDBC = new ConfigurationJDBC("org.h2.Driver", "jdbc:h2:~/ClinicaOdonto;INIT=RUNSCRIPT FROM 'create.sql'", "sa", "");
+    ConfigurationJDBC configurationJDBC = new ConfigurationJDBC("org.h2.Driver", "jdbc:h2:~/ClinicaOdonto;INIT=RUNSCRIPT FROM 'src/main/resources/create.sql'", "sa", "");
     Connection connection = null;
     @Override
     public Endereco salvar(Endereco endereco) throws SQLException {
@@ -29,7 +29,7 @@ public class EnderecoDAOH2 implements IDao<Endereco> {
         Connection connection = null;
         try {
             logger.info("Salvando novo endereço");
-            configurationJDBC = new ConfigurationJDBC("org.h2.Driver","jdbc:h2:~/ClinicaOdonto;INIT=RUNSCRIPT FROM 'create.sql'","sa","");
+            //configurationJDBC = new ConfigurationJDBC("org.h2.Driver","jdbc:h2:~/ClinicaOdonto;INIT=RUNSCRIPT FROM 'src/main/resources/create.sql'","sa","");
             connection = configurationJDBC.getConnection();
             Statement statement = connection.createStatement();
             statement.execute(SQLInsert, Statement.RETURN_GENERATED_KEYS);
@@ -57,7 +57,7 @@ public class EnderecoDAOH2 implements IDao<Endereco> {
         String SQLQUERY = "SELECT * FROM ENDERECOS";
         List<Endereco> enderecos = new ArrayList<>();
         try {
-            configurationJDBC = new ConfigurationJDBC("org.h2.Driver","jdbc:h2:~/ClinicaOdonto;INIT=RUNSCRIPT FROM 'src/main/resources/create.sql'","sa","");
+            //configurationJDBC = new ConfigurationJDBC("org.h2.Driver","jdbc:h2:~/ClinicaOdonto;INIT=RUNSCRIPT FROM 'src/main/resources/create.sql'","sa","");
             connection = configurationJDBC.getConnection();
              stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(SQLQUERY);
@@ -79,17 +79,73 @@ public class EnderecoDAOH2 implements IDao<Endereco> {
 
     @Override
     public void alterar(Endereco endereco) throws SQLException {
+        String SQLUpdate = String.format("UPDATE ENDERECOS SET ESTADO = '%s', CIDADE = '%s', CEP = '%s', RUA = '%s', NUMERO = '%s' where idendereco = '%s';",
+                endereco.getEstado(), endereco.getCidade(), endereco.getCep(),endereco.getRua(), endereco.getNumero(),endereco.getId());
+        Connection connection = null;
+        try{
 
+            //configurationJDBC = new ConfigurationJDBC("org.h2.Driver","jdbc:h2:~/ClinicaOdonto;INIT=RUNSCRIPT FROM 'src/main/resources/create.sql'","sa","");
+            connection = configurationJDBC.getConnection();
+            Statement statement = connection.createStatement();
+
+            statement.execute(SQLUpdate);
+            logger.info("Bateu no alterar");
+        }catch (Exception e){
+            e.printStackTrace();
+            logger.error("Erro ao alterar endereco: "+ e.getMessage());
+        }finally {
+            logger.info("Fechando conexão");
+            connection.close();
+        }
     }
 
     @Override
     public void excluir(int id) throws SQLException {
+        logger.info("Abrindo conexão");
+        Connection connection = null;
+        Statement stmt = null;
+        String SQLDelete = String.format("DELETE FROM ENDERECOS WHERE idendereco = %s", id);
+        try {
+            //configurationJDBC = new ConfigurationJDBC("org.h2.Driver","jdbc:h2:~/ClinicaOdonto;INIT=RUNSCRIPT FROM 'src/main/resources/create.sql'","sa","");
+            connection = configurationJDBC.getConnection();
+            logger.debug("Excluindo endereço com id: " + id);
+            stmt = connection.createStatement();
 
+            stmt.execute(SQLDelete);
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally {
+            logger.debug("Fechando conexão*");
+            connection.close();
+        }
     }
 
     @Override
     public Optional<Endereco> buscarPorId(int id) throws SQLException {
-        return Optional.empty();
+        logger.info("Abrindo conexão;");
+        Connection connection = null;
+        Statement statement = null;
+        String SQLBuscaId = String.format("SELECT * FROM enderecos WHERE idendereco = '%s' ",id);
+        Endereco endereco = null;
+
+        try {
+            //configurationJDBC = new ConfigurationJDBC("org.h2.Driver","jdbc:h2:~/ecommerce1;INIT=RUNSCRIPT FROM 'src/main/resources/create.sql'","sa","");
+            connection = configurationJDBC.getConnection();
+            logger.info("Buscando o endereco com id: "+id);
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(SQLBuscaId);
+            while (resultSet.next()){
+                endereco = criarObjetoEndereco(resultSet);
+            }
+        }catch (SQLException throwables){
+            throwables.printStackTrace();
+        }finally {
+            logger.info("Fechando conexão com o bando");
+            connection.close();
+        }
+
+        return endereco != null ? Optional.of(endereco): Optional.empty();
     }
 
     private Endereco criarObjetoEndereco(ResultSet rs) throws SQLException {

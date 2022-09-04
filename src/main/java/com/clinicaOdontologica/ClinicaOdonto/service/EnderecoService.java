@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EnderecoService {
@@ -27,5 +28,14 @@ public class EnderecoService {
             listEnderecoDTO.add(new EnderecoDTO(e));
         }
         return listEnderecoDTO;
+    }
+    public void alterar(Endereco endereco) throws SQLException{
+        enderecoDaoH2.alterar(endereco);
+    }
+    public void excluir(int id) throws SQLException {
+        enderecoDaoH2.excluir(id);
+    }
+    public Optional<Endereco> buscaPorId(int id) throws SQLException {
+        return enderecoDaoH2.buscarPorId(id);
     }
 }
