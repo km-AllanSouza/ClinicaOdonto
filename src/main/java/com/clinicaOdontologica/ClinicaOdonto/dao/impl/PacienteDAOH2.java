@@ -18,6 +18,7 @@ import java.util.Optional;
 @Configuration
 public class PacienteDAOH2 implements IDao <Paciente> {
 
+
     private static final Logger logger = LogManager.getLogger(PacienteDAOH2.class);
 
     ConfigurationJDBC configurationJDBC = new ConfigurationJDBC("org.h2.Driver", "jdbc:h2:~/ClinicaOdonto;INIT=RUNSCRIPT FROM 'src/main/resources/create.sql'", "sa", "");
