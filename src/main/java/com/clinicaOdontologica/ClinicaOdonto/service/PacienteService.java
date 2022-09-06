@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PacienteService {
@@ -42,6 +43,10 @@ public class PacienteService {
 
     public void excluir(int id) throws SQLException {
         pacienteDAOH2.excluir(id);
+    }
+
+    public Optional<Paciente> buscarPorId(int id) throws SQLException {
+        return pacienteDAOH2.buscarPorId(id);
     }
 
 

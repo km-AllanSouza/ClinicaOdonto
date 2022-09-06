@@ -46,7 +46,6 @@ public class PacienteDAOH2 implements IDao <Paciente> {
         } finally {
             connection.close();
             logger.info("FECHANDO CONEXAO");
-
         }
         return paciente;
     }
@@ -76,7 +75,7 @@ public class PacienteDAOH2 implements IDao <Paciente> {
 
     @Override
     public void alterar(Paciente paciente) throws SQLException {
-        String SQLUPDATE = String.format("UPDATE PACIENTES SET telefone = '%s' WHERE idPaciente = '%s';", paciente.getTelefone(), paciente.getId());
+        String SQLUPDATE = String.format("UPDATE PACIENTES SET telefone = %s WHERE idPaciente = %s;", paciente.getTelefone(), paciente.getId());
 
         try {
             connection = configurationJDBC.getConnection();
@@ -109,7 +108,25 @@ public class PacienteDAOH2 implements IDao <Paciente> {
     }
     @Override
     public Optional<Paciente> buscarPorId(int id) throws SQLException {
-        return Optional.empty();
+        String query = String.format("SELECT * FROM pacientes WHERE idPaciente = %s",id);
+        Paciente paciente = null;
+        try {
+            connection = configurationJDBC.getConnection();
+            Statement stmt = connection.createStatement();
+
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                paciente = criarObjetoPaciente(rs);
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally {
+            connection.close();
+        }
+
+        return paciente != null ? Optional.of(paciente) : Optional.empty();
     }
 
     private Paciente criarObjetoPaciente(ResultSet rs) throws SQLException {
