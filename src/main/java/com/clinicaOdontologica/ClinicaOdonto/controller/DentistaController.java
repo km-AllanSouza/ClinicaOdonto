@@ -4,6 +4,7 @@ import com.clinicaOdontologica.ClinicaOdonto.model.Dentista;
 import com.clinicaOdontologica.ClinicaOdonto.model.dto.DentistaDTO;
 import com.clinicaOdontologica.ClinicaOdonto.service.DentistaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,26 +22,28 @@ public class DentistaController {
     DentistaService service;
 
     @PostMapping
-    public Dentista salvarDentista(@RequestBody Dentista dentista) throws SQLException {
-        return service.salvar(dentista);
+    public ResponseEntity salvarDentista(@RequestBody Dentista dentista) {
+        return new ResponseEntity("Operação concluida"+service.salvar(dentista), HttpStatus.OK);
     }
 
     @GetMapping
-    public List<DentistaDTO> buscarDentistas() throws SQLException{
-        return service.listarDentistas();
+    public ResponseEntity buscarDentistas() throws SQLException{
+        return new ResponseEntity("Resultado da busca: "+service.listarDentistas(), HttpStatus.OK);
     }
 
     @PatchMapping
-    public void alterarDentista(@RequestBody Dentista dentista) throws SQLException {
+    public ResponseEntity alterarDentista(@RequestBody Dentista dentista){
         service.alterar(dentista);
+        return new ResponseEntity(dentista.getId()+" Alterado",HttpStatus.OK );
     }
 
     @DeleteMapping
-    public void deleteDentista(@RequestParam int id) throws SQLException {
+    public ResponseEntity deleteDentista(@RequestParam Long id)  {
         service.excluir(id);
+        return new ResponseEntity(id +" Excluido.",HttpStatus.OK);
     }
     @RequestMapping( value ="/buscaid", method = RequestMethod.GET)
-    public ResponseEntity buscarDentistaId(@RequestParam("id") int id) throws SQLException {
+    public ResponseEntity buscarDentistaId(@RequestParam("id") Long id) throws SQLException {
         ObjectMapper mapper = new ObjectMapper();
 
         Optional<Dentista> dentistaOptional = service.buscarDentistaId(id);

@@ -38,7 +38,7 @@ public class EnderecoController {
         service.excluir(id);
        return new ResponseEntity("Excluido endereco de id: "+id,HttpStatus.OK);
     }
-    @RequestMapping(value = "/buscaId", method = RequestMethod.GET)
+    @RequestMapping(value = "/buscaid", method = RequestMethod.GET)
     public ResponseEntity buscarPorId(@RequestParam("id")Long id)throws SQLException{
         ObjectMapper mapper = new ObjectMapper();
         Optional<Endereco> enderecoOptional = service.buscaPorId(id);

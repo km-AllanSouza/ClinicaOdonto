@@ -5,6 +5,7 @@ import com.clinicaOdontologica.ClinicaOdonto.model.Dentista;
 import com.clinicaOdontologica.ClinicaOdonto.model.Paciente;
 import com.clinicaOdontologica.ClinicaOdonto.model.dto.DentistaDTO;
 import com.clinicaOdontologica.ClinicaOdonto.model.dto.PacienteDTO;
+import com.clinicaOdontologica.ClinicaOdonto.repository.DentistaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,14 +18,16 @@ import java.util.Optional;
 public class DentistaService{
 
     @Autowired
-    IDao<Dentista> dentistaDAOH2;
+    //IDao<Dentista> dentistaDAOH2;
 
-    public Dentista salvar(Dentista dentista) throws SQLException {
-        return dentistaDAOH2.salvar(dentista);
+    DentistaRepository repository;
+
+    public Dentista salvar(Dentista dentista) {
+        return repository.save(dentista);
     }
 
-    public List<DentistaDTO> listarDentistas() throws SQLException {
-        List<Dentista> dentistaList = dentistaDAOH2.buscarTodos();
+    public List<DentistaDTO> listarDentistas() {
+        List<Dentista> dentistaList = repository.findAll();
         List<DentistaDTO> dentistaDTOList = new ArrayList<>();
 
         for(Dentista e : dentistaList){
@@ -34,16 +37,16 @@ public class DentistaService{
         return dentistaDTOList;
     }
 
-    public void alterar (Dentista dentista) throws SQLException{
-        dentistaDAOH2.alterar(dentista);
+    public void alterar (Dentista dentista) {
+        repository.save(dentista);
     }
 
-    public void excluir(int id) throws SQLException {
-        dentistaDAOH2.excluir(id);
+    public void excluir(Long id){
+        repository.deleteById(id);
     }
 
-    public Optional<Dentista> buscarDentistaId(int id) throws SQLException{
-        return dentistaDAOH2.buscarPorId(id);
+    public Optional<Dentista> buscarDentistaId(Long id) throws SQLException{
+        return repository.findById(id);
     }
 
 }
