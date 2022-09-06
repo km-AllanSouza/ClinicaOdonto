@@ -21,24 +21,25 @@ public class EnderecoController {
     @Autowired
     EnderecoService service;
     @PostMapping
-    public Endereco salvarEndereco(@RequestBody Endereco endereco) throws SQLException {
-        return service.salvar(endereco);
+    public ResponseEntity salvarEndereco(@RequestBody Endereco endereco) throws SQLException {
+        return new  ResponseEntity(service.salvar(endereco),HttpStatus.OK) ;
     }
     @GetMapping
-    public List<EnderecoDTO> buscarEnderecos() throws SQLException {
-        return service.buscarTodos();
+    public ResponseEntity  buscarEnderecos() throws SQLException {
+        return new ResponseEntity(service.buscarTodos(),HttpStatus.OK) ;
     }
     @PatchMapping
-    public  void alterar(@RequestBody Endereco endereco)throws SQLException{
+    public  ResponseEntity alterar(@RequestBody Endereco endereco){
         service.alterar(endereco);
+       return new  ResponseEntity("Alterado Endereco de Id: "+endereco.getId(), HttpStatus.OK);
     }
     @DeleteMapping
-    public void excluir(@RequestParam("id") int id)throws SQLException{
-
+    public ResponseEntity excluir(@RequestParam("id") Long id){
         service.excluir(id);
+       return new ResponseEntity("Excluido endereco de id: "+id,HttpStatus.OK);
     }
     @RequestMapping(value = "/buscaId", method = RequestMethod.GET)
-    public ResponseEntity buscarPorId(@RequestParam("id")int id)throws SQLException{
+    public ResponseEntity buscarPorId(@RequestParam("id")Long id)throws SQLException{
         ObjectMapper mapper = new ObjectMapper();
         Optional<Endereco> enderecoOptional = service.buscaPorId(id);
         if (enderecoOptional.isEmpty()){
