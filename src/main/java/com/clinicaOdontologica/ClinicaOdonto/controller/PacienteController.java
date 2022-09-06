@@ -42,7 +42,7 @@ public class PacienteController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/buscarId", method = RequestMethod.GET)
+    @RequestMapping(value = "/buscarid", method = RequestMethod.GET)
     public ResponseEntity buscarPorId(@RequestParam("id") Long id) throws SQLException {
         ObjectMapper mapper = new ObjectMapper();
 
