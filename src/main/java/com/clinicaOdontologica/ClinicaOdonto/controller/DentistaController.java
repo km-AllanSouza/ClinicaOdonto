@@ -23,18 +23,19 @@ public class DentistaController {
 
     @PostMapping
     public ResponseEntity salvarDentista(@RequestBody Dentista dentista) {
-        return new ResponseEntity("Operação concluida"+service.salvar(dentista), HttpStatus.OK);
+        return new ResponseEntity(service.salvar(dentista), HttpStatus.OK);
     }
+
 
     @GetMapping
     public ResponseEntity buscarDentistas() throws SQLException{
-        return new ResponseEntity("Resultado da busca: "+service.listarDentistas(), HttpStatus.OK);
+        return new ResponseEntity(service.listarDentistas(), HttpStatus.OK);
     }
 
     @PatchMapping
     public ResponseEntity alterarDentista(@RequestBody Dentista dentista){
         service.alterar(dentista);
-        return new ResponseEntity(dentista.getId()+" Alterado",HttpStatus.OK );
+        return new ResponseEntity(dentista.getId(),HttpStatus.OK );
     }
 
     @DeleteMapping
