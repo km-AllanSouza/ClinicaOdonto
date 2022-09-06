@@ -13,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PacienteDTO {
-    private int id;
+    private Long id;
     private String nome;
     private String sobrenome;
     private String cpf;

@@ -5,13 +5,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
+@Entity
 public class Paciente {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String nome;
     private String sobrenome;
     private String telefone;
@@ -28,7 +35,7 @@ public class Paciente {
         this.dataCadastro = dataCadastro;
     }
 
-    public Paciente(Integer id, String nome, String sobrenome, String cpf) {
+    public Paciente(Long id, String nome, String sobrenome, String cpf) {
         this.id = id;
         this.nome = nome;
         this.sobrenome = sobrenome;
