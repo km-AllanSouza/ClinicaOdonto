@@ -5,19 +5,25 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class Endereco {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idEnderecos")
+    private Long id;
     private String estado;
     private String cidade;
     private String cep;
     private String rua;
     private String numero;
 
-    public Endereco(int id, String cidade, String rua, String numero) {
+    public Endereco(Long id, String cidade, String rua, String numero) {
         this.id = id;
         this.cidade = cidade;
         this.rua = rua;
