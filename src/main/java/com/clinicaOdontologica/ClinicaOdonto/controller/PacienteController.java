@@ -21,27 +21,29 @@ public class PacienteController {
     PacienteService service;
 
     @PostMapping
-    public Paciente salvarPaciente(@RequestBody Paciente paciente) throws SQLException {
-        return service.salvar(paciente);
+    public ResponseEntity salvarPaciente(@RequestBody Paciente paciente) throws SQLException {
+        return new ResponseEntity(service.salvar(paciente),HttpStatus.OK);
     }
 
     @GetMapping
-    public List<PacienteDTO> buscarPacientes() throws SQLException {
-        return service.buscarTodos();
+    public ResponseEntity buscarPacientes() throws SQLException {
+        return new ResponseEntity(service.buscarTodos(),HttpStatus.OK);
     }
 
     @PatchMapping
-    public void alterarPaciente(@RequestBody Paciente paciente) throws SQLException {
+    public ResponseEntity alterarPaciente(@RequestBody Paciente paciente) throws SQLException {
         service.alterar(paciente);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @DeleteMapping
-    public void delete(@RequestParam int id) throws SQLException {
+    public ResponseEntity delete(@RequestParam Long id) throws SQLException {
         service.excluir(id);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/buscarId", method = RequestMethod.GET)
-    public ResponseEntity buscarPorId(@RequestParam("id") int id) throws SQLException {
+    public ResponseEntity buscarPorId(@RequestParam("id") Long id) throws SQLException {
         ObjectMapper mapper = new ObjectMapper();
 
         Optional<Paciente> pacienteOptional = service.buscarPorId(id);

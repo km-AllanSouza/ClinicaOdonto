@@ -39,7 +39,7 @@ public class PacienteDAOH2 implements IDao <Paciente> {
             logger.info("PACIENTE INSERIDO COM SUCESSO");
 
             if(rs.next()){
-                paciente.setId(rs.getInt(1));
+                paciente.setId(rs.getLong(1));
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -131,7 +131,7 @@ public class PacienteDAOH2 implements IDao <Paciente> {
 
     private Paciente criarObjetoPaciente(ResultSet rs) throws SQLException {
 
-        Integer id = rs.getInt("idPaciente");
+        Long id = rs.getLong("idPaciente");
         String nome = rs.getString("nome");
         String sobrenome = rs.getString("sobrenome");
         String cpf = rs.getString("cpf");
