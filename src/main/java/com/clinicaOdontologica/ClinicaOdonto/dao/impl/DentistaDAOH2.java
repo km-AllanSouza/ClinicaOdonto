@@ -40,7 +40,7 @@ public class DentistaDAOH2 implements IDao<Dentista> {
             logger.info("dados inseridos com sucesso");
 
             if(rs.next()){
-                dentista.setId(rs.getInt(1));
+                //dentista.setId(rs.getInt(1));
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
