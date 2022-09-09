@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -19,11 +16,16 @@ public class Consulta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int idDentista;
-    private int idPaciente;
+
+    @OneToOne
+    @JoinColumn(name = "idDentista")
+    private Dentista idDentista;
+    @OneToOne
+    @JoinColumn(name = "idPaciente")
+    private Paciente idPaciente;
     private String dataHorario;
 
-    public Consulta(int idDentista, int idPaciente, String dataHorario) {
+    public Consulta(Dentista idDentista, Paciente idPaciente, String dataHorario) {
         this.idDentista = idDentista;
         this.idPaciente = idPaciente;
         this.dataHorario = dataHorario;

@@ -25,7 +25,7 @@ public class ConsultaController {
     }
 
     @GetMapping
-    public ResponseEntity buscar() throws SQLException {
+    public ResponseEntity buscarTodos() throws SQLException {
         return new ResponseEntity(service.buscarTodos(),HttpStatus.OK);
     }
 
