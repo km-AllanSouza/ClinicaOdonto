@@ -1,11 +1,13 @@
 package com.clinicaOdontologica.ClinicaOdonto.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -23,9 +25,11 @@ public class Paciente {
     @JoinColumn(name = "idEndereco")
     private Endereco endereco;
     private String cpf;
-    private String dataCadastro;
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(pattern = "yyyy-mm-dd")
+    private Date dataCadastro;
 
-    public Paciente(String nome, String sobrenome, String telefone, Endereco endereco, String cpf, String dataCadastro) {
+    public Paciente(String nome, String sobrenome, String telefone, Endereco endereco, String cpf, Date dataCadastro) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.telefone = telefone;
