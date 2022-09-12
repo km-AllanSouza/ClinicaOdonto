@@ -16,7 +16,6 @@ import java.util.Optional;
 @Service
 public class EnderecoService {
     @Autowired
-    //IDao<Endereco> enderecoDaoH2;
     EnderecoRepository repository;
     public Endereco salvar(Endereco endereco)  {
         return repository.save(endereco);
@@ -30,11 +29,21 @@ public class EnderecoService {
         }
         return listEnderecoDTO;
     }
-    public void alterar(Endereco endereco){
-        repository.save(endereco);
+    public Boolean alterar(Endereco endereco){
+
+        if ((repository.findById(endereco.getId()).isPresent())){
+            repository.save(endereco);
+            return true;
+        }
+        return false;
+
     }
-    public void excluir(Long id)  {
-        repository.deleteById(id);
+    public Boolean excluir(Long id)  {
+        if (repository.findById(id).isPresent()){
+            repository.deleteById(id);
+            return true;
+        }
+        return false;
     }
     public Optional<Endereco> buscaPorId(Long id)  {
         return repository.findById(id);

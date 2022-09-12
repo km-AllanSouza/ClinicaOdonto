@@ -30,13 +30,18 @@ public class EnderecoController {
     }
     @PatchMapping
     public  ResponseEntity alterar(@RequestBody Endereco endereco){
-        service.alterar(endereco);
+        if (!service.alterar(endereco)){
+            return new ResponseEntity<>("Endereço não encontrado", HttpStatus.NOT_FOUND);
+        }
+
        return new  ResponseEntity("Alterado Endereco de Id: "+endereco.getId(), HttpStatus.OK);
     }
     @DeleteMapping
     public ResponseEntity excluir(@RequestParam("id") Long id){
-        service.excluir(id);
-       return new ResponseEntity("Excluido endereco de id: "+id,HttpStatus.OK);
+        if (!service.excluir(id)){
+            return new ResponseEntity("Endereço não encontrado", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity("Excluido endereco de ID: "+id,HttpStatus.OK);
     }
     @RequestMapping(value = "/buscaid", method = RequestMethod.GET)
     public ResponseEntity buscarPorId(@RequestParam("id")Long id)throws SQLException{
