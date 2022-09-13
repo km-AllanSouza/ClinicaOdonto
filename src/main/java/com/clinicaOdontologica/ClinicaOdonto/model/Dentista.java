@@ -22,7 +22,6 @@ public class Dentista {
     private String matricula;
 
     public Dentista(String nome, String sobrenome, String matricula) {
-
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.matricula = matricula;

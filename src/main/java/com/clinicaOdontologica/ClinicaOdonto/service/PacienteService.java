@@ -1,5 +1,6 @@
 package com.clinicaOdontologica.ClinicaOdonto.service;
 
+import com.clinicaOdontologica.ClinicaOdonto.model.Endereco;
 import com.clinicaOdontologica.ClinicaOdonto.model.Paciente;
 import com.clinicaOdontologica.ClinicaOdonto.model.dto.PacienteDTO;
 import com.clinicaOdontologica.ClinicaOdonto.repository.PacienteRepository;

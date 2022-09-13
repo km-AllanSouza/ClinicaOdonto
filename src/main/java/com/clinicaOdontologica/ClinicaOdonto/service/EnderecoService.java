@@ -1,6 +1,5 @@
 package com.clinicaOdontologica.ClinicaOdonto.service;
 
-import com.clinicaOdontologica.ClinicaOdonto.dao.IDao;
 import com.clinicaOdontologica.ClinicaOdonto.model.Endereco;
 import com.clinicaOdontologica.ClinicaOdonto.model.Paciente;
 import com.clinicaOdontologica.ClinicaOdonto.model.dto.EnderecoDTO;
@@ -18,6 +17,9 @@ public class EnderecoService {
     @Autowired
     EnderecoRepository repository;
     public Endereco salvar(Endereco endereco)  {
+
+
+
         return repository.save(endereco);
     }
     public List<EnderecoDTO> buscarTodos() throws SQLException{

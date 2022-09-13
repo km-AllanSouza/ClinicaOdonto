@@ -1,6 +1,5 @@
 package com.clinicaOdontologica.ClinicaOdonto.service;
 
-import com.clinicaOdontologica.ClinicaOdonto.dao.IDao;
 import com.clinicaOdontologica.ClinicaOdonto.model.Dentista;
 import com.clinicaOdontologica.ClinicaOdonto.model.Paciente;
 import com.clinicaOdontologica.ClinicaOdonto.model.dto.DentistaDTO;

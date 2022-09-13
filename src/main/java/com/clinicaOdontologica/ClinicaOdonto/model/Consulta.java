@@ -42,4 +42,5 @@ public class Consulta {
         this.data = data;
         this.horario = horario;
     }
+
 }
