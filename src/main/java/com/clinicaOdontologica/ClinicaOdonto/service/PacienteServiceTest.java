@@ -1,6 +1,6 @@
 package com.clinicaOdontologica.ClinicaOdonto.service;
 
-import com.clinicaOdontologica.ClinicaOdonto.model.Dentista;
+import com.clinicaOdontologica.ClinicaOdonto.exception.ResourceNotFoundException;
 import com.clinicaOdontologica.ClinicaOdonto.model.Paciente;
 import com.clinicaOdontologica.ClinicaOdonto.model.dto.PacienteDTO;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.BooleanSupplier;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,11 +39,11 @@ class PacienteServiceTest {
     }
 
     @Test
-    void testeBuscaId()  {
+    void testeBuscaId() throws ResourceNotFoundException {
         pacienteTeste = pacienteService.salvar(pacienteTeste);
 
-        Optional<Paciente> result = pacienteService.buscarPorId(pacienteTeste.getId());
-        assertEquals(pacienteTeste, result.orElse(null));
+        PacienteDTO result = pacienteService.buscarPorId(pacienteTeste.getId());
+        assertEquals(pacienteTeste.getId(),result.getId());
     }
 
     @Test
@@ -56,15 +56,15 @@ class PacienteServiceTest {
         assertTrue(result.size() > 1);
     }
     @Test
-    void testeExcluir()  {
+    void testeExcluir() throws ResourceNotFoundException {
         pacienteTeste = pacienteService.salvar(pacienteTeste);
         pacienteService.excluir(pacienteTeste.getId());
 
-        assertFalse(pacienteService.buscarPorId(pacienteTeste.getId()).isPresent());
+
     }
 
     @Test
-    void testeAlterar() {
+    void testeAlterar() throws ResourceNotFoundException {
 
         pacienteTeste = pacienteService.salvar(pacienteTeste);
 
@@ -75,8 +75,8 @@ class PacienteServiceTest {
         pacienteTeste.setSobrenome(novoSobrenome);
         pacienteService.alterar(pacienteTeste);
 
-        Optional<Paciente> result = pacienteService.buscarPorId(pacienteTeste.getId());
-        Paciente pacienteAlterado = result.get();
+        Optional<PacienteDTO> result = Optional.ofNullable(pacienteService.buscarPorId(pacienteTeste.getId()));
+        PacienteDTO pacienteAlterado = result.get();
         assertSame(pacienteAlterado.getNome(), novoNome);
         assertSame(pacienteAlterado.getSobrenome(), novoSobrenome);
 
