@@ -36,4 +36,11 @@ public class Paciente {
         this.sobrenome = sobrenome;
         this.cpf = cpf;
     }
+
+    public Paciente(String nome, String sobrenome, String telefone, String cpf) {
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+        this.telefone = telefone;
+        this.cpf = cpf;
+    }
 }
