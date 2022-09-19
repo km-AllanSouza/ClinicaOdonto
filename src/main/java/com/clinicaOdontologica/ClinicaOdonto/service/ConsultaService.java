@@ -1,14 +1,20 @@
 package com.clinicaOdontologica.ClinicaOdonto.service;
 
 import com.clinicaOdontologica.ClinicaOdonto.model.Consulta;
+import com.clinicaOdontologica.ClinicaOdonto.model.Dentista;
 import com.clinicaOdontologica.ClinicaOdonto.model.Paciente;
 import com.clinicaOdontologica.ClinicaOdonto.model.dto.PacienteDTO;
 import com.clinicaOdontologica.ClinicaOdonto.repository.ConsultaRepository;
+import com.clinicaOdontologica.ClinicaOdonto.repository.DentistaRepository;
 import com.clinicaOdontologica.ClinicaOdonto.repository.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,8 +22,11 @@ import java.util.Optional;
 public class ConsultaService {
     @Autowired
     ConsultaRepository repository;
+    @Autowired
+    DentistaService dentistaService;
 
-    public Consulta salvar(Consulta consulta){
+    public Consulta salvar(Consulta consulta) throws SQLException {
+        System.out.println(buscarTodos());
         return repository.save(consulta);
     }
 
@@ -38,4 +47,5 @@ public class ConsultaService {
     public Optional<Consulta> buscarPorId(Long id){
         return repository.findById(id);
     }
+
 }
