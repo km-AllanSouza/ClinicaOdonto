@@ -1,5 +1,6 @@
 package com.clinicaOdontologica.ClinicaOdonto.controller;
 
+import com.clinicaOdontologica.ClinicaOdonto.exception.ResourceNotFoundException;
 import com.clinicaOdontologica.ClinicaOdonto.model.Paciente;
 import com.clinicaOdontologica.ClinicaOdonto.model.dto.PacienteDTO;
 import com.clinicaOdontologica.ClinicaOdonto.service.PacienteService;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,40 +23,32 @@ public class PacienteController {
     PacienteService service;
 
     @PostMapping
-    public ResponseEntity salvarPaciente(@RequestBody Paciente paciente) throws SQLException {
+    public ResponseEntity salvarPaciente(@RequestBody Paciente paciente) {
         return new ResponseEntity(service.salvar(paciente),HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity buscarPacientes() throws SQLException {
+
         return new ResponseEntity(service.buscarTodos(),HttpStatus.OK);
     }
 
     @PatchMapping
-    public ResponseEntity alterarPaciente(@RequestBody Paciente paciente) throws SQLException {
+    public ResponseEntity alterarPaciente(@RequestBody Paciente paciente) {
         service.alterar(paciente);
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @DeleteMapping
-    public ResponseEntity delete(@RequestParam Long id) throws SQLException {
+    public ResponseEntity delete(@RequestParam Long id) throws ResourceNotFoundException {
         service.excluir(id);
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/buscarid", method = RequestMethod.GET)
-    public ResponseEntity buscarPorId(@RequestParam("id") Long id) throws SQLException {
-        ObjectMapper mapper = new ObjectMapper();
+    public ResponseEntity buscarPorId(@RequestParam("id") Long id) throws ResourceNotFoundException {
 
-        Optional<Paciente> pacienteOptional = service.buscarPorId(id);
-        if(pacienteOptional.isEmpty()){
-            return new ResponseEntity("Paciente não foi encontrado", HttpStatus.NOT_FOUND);
-        }
-
-        Paciente paciente =  pacienteOptional.get();
-        PacienteDTO pacienteDTO = mapper.convertValue(paciente, PacienteDTO.class);
-
-        return new ResponseEntity(pacienteDTO, HttpStatus.OK);
+        return new ResponseEntity(service.buscarPorId(id), HttpStatus.OK);
     }
 
 }
