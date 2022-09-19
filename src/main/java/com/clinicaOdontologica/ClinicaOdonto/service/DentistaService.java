@@ -1,9 +1,7 @@
 package com.clinicaOdontologica.ClinicaOdonto.service;
 
 import com.clinicaOdontologica.ClinicaOdonto.model.Dentista;
-import com.clinicaOdontologica.ClinicaOdonto.model.Paciente;
 import com.clinicaOdontologica.ClinicaOdonto.model.dto.DentistaDTO;
-import com.clinicaOdontologica.ClinicaOdonto.model.dto.PacienteDTO;
 import com.clinicaOdontologica.ClinicaOdonto.repository.DentistaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
