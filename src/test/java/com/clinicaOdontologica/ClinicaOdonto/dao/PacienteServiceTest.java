@@ -1,8 +1,10 @@
-package com.clinicaOdontologica.ClinicaOdonto.service;
+package com.clinicaOdontologica.ClinicaOdonto.dao;
 
 import com.clinicaOdontologica.ClinicaOdonto.exception.ResourceNotFoundException;
 import com.clinicaOdontologica.ClinicaOdonto.model.Paciente;
 import com.clinicaOdontologica.ClinicaOdonto.model.dto.PacienteDTO;
+import com.clinicaOdontologica.ClinicaOdonto.service.PacienteService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,9 +59,15 @@ class PacienteServiceTest {
     }
     @Test
     void testeExcluir() throws ResourceNotFoundException {
-        pacienteTeste = pacienteService.salvar(pacienteTeste);
+        Paciente pacienteTeste = new Paciente("Mulher","doBill","547182314","547.144.145-54");
+        pacienteService.salvar(pacienteTeste);
+
         pacienteService.excluir(pacienteTeste.getId());
 
+        ResourceNotFoundException exception = assertThrows(
+                ResourceNotFoundException.class, ()-> pacienteService.buscarPorId(pacienteTeste.getId()));
+
+        assertTrue(exception.getMessage().contains("ID invalido"));
 
     }
 

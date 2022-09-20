@@ -51,11 +51,10 @@ public class PacienteService {
 
     public PacienteDTO buscarPorId(Long id) throws ResourceNotFoundException {
         ObjectMapper mapper = new ObjectMapper();
-
-        Optional<Paciente> pacienteOptional = repository.findById(id);
         Paciente paciente = null;
 
         try {
+            Optional<Paciente> pacienteOptional = repository.findById(id);
             paciente = pacienteOptional.get();
         } catch (Exception e) {
             throw new ResourceNotFoundException("ID invalido, este paciente não existe");
