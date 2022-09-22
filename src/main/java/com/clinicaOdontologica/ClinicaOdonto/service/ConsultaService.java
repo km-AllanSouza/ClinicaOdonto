@@ -25,6 +25,7 @@ public class ConsultaService {
     @Autowired
     DentistaService dentistaService;
 
+
     public Consulta salvar(Consulta consulta) throws SQLException {
         System.out.println(buscarTodos());
         return repository.save(consulta);
@@ -46,6 +47,11 @@ public class ConsultaService {
 
     public Optional<Consulta> buscarPorId(Long id){
         return repository.findById(id);
+    }
+    public List<Consulta> verificarHorario(Time hora, Date data, Long idD){
+       return repository.findByHorarioAndDataAndIdDentistaId(hora, data, idD);
+
+
     }
 
 }
