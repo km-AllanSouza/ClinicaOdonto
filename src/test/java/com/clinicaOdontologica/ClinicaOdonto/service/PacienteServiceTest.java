@@ -1,4 +1,4 @@
-package com.clinicaOdontologica.ClinicaOdonto.dao;
+package com.clinicaOdontologica.ClinicaOdonto.service;
 
 import com.clinicaOdontologica.ClinicaOdonto.exception.ResourceNotFoundException;
 import com.clinicaOdontologica.ClinicaOdonto.model.Paciente;

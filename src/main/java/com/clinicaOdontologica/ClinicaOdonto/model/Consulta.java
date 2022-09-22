@@ -22,6 +22,8 @@ public class Consulta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
+
     @OneToOne
     @JoinColumn(name = "idDentista")
     private Dentista idDentista;
