@@ -23,11 +23,16 @@ public class ConsultaService {
     @Autowired
     ConsultaRepository repository;
     @Autowired
-    DentistaService dentistaService;
+    DentistaRepository dentistaService;
 
+    public Consulta salvar(Consulta consulta) {
+        Long dentistaId = consulta.getIdDentista().getId();
+        Optional<Dentista> dentista = dentistaService.findById(dentistaId);
+        System.out.println("o nome do dentista é: " + dentista.get().getNome());
 
     public Consulta salvar(Consulta consulta) throws SQLException {
         System.out.println(buscarTodos());
+
         return repository.save(consulta);
     }
 
