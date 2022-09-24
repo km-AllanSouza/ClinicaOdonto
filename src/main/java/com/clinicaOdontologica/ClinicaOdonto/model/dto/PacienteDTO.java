@@ -27,4 +27,5 @@ public class PacienteDTO {
         this.cpf = paciente.getCpf();
         this.endereco = paciente.getEndereco();
     }
+
 }

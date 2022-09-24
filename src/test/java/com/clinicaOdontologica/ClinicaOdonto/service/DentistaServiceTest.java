@@ -2,6 +2,7 @@ package com.clinicaOdontologica.ClinicaOdonto.service;
 
 import com.clinicaOdontologica.ClinicaOdonto.model.Dentista;
 import com.clinicaOdontologica.ClinicaOdonto.model.dto.DentistaDTO;
+import com.clinicaOdontologica.ClinicaOdonto.service.DentistaService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

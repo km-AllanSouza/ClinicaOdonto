@@ -3,6 +3,7 @@ package com.clinicaOdontologica.ClinicaOdonto.service;
 import com.clinicaOdontologica.ClinicaOdonto.exception.ResourceNotFoundException;
 import com.clinicaOdontologica.ClinicaOdonto.model.Paciente;
 import com.clinicaOdontologica.ClinicaOdonto.model.dto.PacienteDTO;
+import com.clinicaOdontologica.ClinicaOdonto.repository.DentistaRepository;
 import com.clinicaOdontologica.ClinicaOdonto.repository.PacienteRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +18,10 @@ public class PacienteService {
 
     @Autowired
     PacienteRepository repository;
-
     public Paciente salvar(Paciente paciente){
         return repository.save(paciente);
     }
 
-//    //public List<Paciente> buscarTodos(){
-//        return repository.findAll();
-//    }
     public List<PacienteDTO> buscarTodos(){
         List<Paciente> pacienteList = repository.findAll();
         List<PacienteDTO> pacienteDTOList = new ArrayList<>();
@@ -45,17 +42,12 @@ public class PacienteService {
         repository.deleteById(id);
     }
 
-//    public Paciente buscarPorId(Long id) throws ResourceNotFoundException {
-//        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Erro ao excluir produto, id informado não existe"));
-//    }
-
     public PacienteDTO buscarPorId(Long id) throws ResourceNotFoundException {
         ObjectMapper mapper = new ObjectMapper();
-
-        Optional<Paciente> pacienteOptional = repository.findById(id);
         Paciente paciente = null;
 
         try {
+            Optional<Paciente> pacienteOptional = repository.findById(id);
             paciente = pacienteOptional.get();
         } catch (Exception e) {
             throw new ResourceNotFoundException("ID invalido, este paciente não existe");
@@ -65,6 +57,5 @@ public class PacienteService {
 
         return pacienteDTO;
     }
-
 
 }

@@ -11,6 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
+import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -21,7 +24,12 @@ public class ConsultaController {
 
     @PostMapping
     public ResponseEntity salvar(@RequestBody Consulta consulta) throws SQLException {
-        return new ResponseEntity(service.salvar(consulta), HttpStatus.OK);
+        List<Consulta> listHorario = service.verificarHorario(consulta.getHorario(),consulta.getData(), consulta.getIdDentista().getId());
+        if (!listHorario.isEmpty()){
+            return new ResponseEntity<>("Horario indisponivel",HttpStatus.CONFLICT);
+        }
+            return new ResponseEntity(service.salvar(consulta), HttpStatus.OK);
+
     }
 
     @GetMapping
@@ -52,4 +60,5 @@ public class ConsultaController {
 
         return new ResponseEntity(consultaOptional, HttpStatus.OK);
     }
+
 }
