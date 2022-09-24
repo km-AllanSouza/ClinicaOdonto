@@ -1,7 +1,6 @@
 package com.clinicaOdontologica.ClinicaOdonto.service;
 
 import com.clinicaOdontologica.ClinicaOdonto.model.Consulta;
-import com.clinicaOdontologica.ClinicaOdonto.model.Dentista;
 import com.clinicaOdontologica.ClinicaOdonto.repository.ConsultaRepository;
 import com.clinicaOdontologica.ClinicaOdonto.repository.DentistaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +18,8 @@ public class ConsultaService {
     @Autowired
     DentistaRepository dentistaService;
 
-    public Consulta salvar(Consulta consulta) {
-        Long dentistaId = consulta.getIdDentista().getId();
-        Optional<Dentista> dentista = dentistaService.findById(dentistaId);
-        System.out.println("o nome do dentista é: " + dentista.get().getNome());
-        return consulta;
+    public Consulta salvar(Consulta consulta){
+        return repository.save(consulta);
     }
 
     public List<Consulta> buscarTodos(){
