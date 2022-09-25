@@ -1,6 +1,6 @@
 package com.clinicaOdontologica.ClinicaOdonto.controller;
 
-import com.clinicaOdontologica.ClinicaOdonto.config.security.TokenService;
+import com.clinicaOdontologica.ClinicaOdonto.configSecurity.TokenService;
 import com.clinicaOdontologica.ClinicaOdonto.model.dto.TokenDTO;
 import com.clinicaOdontologica.ClinicaOdonto.model.dto.UsuarioDTO;
 import org.springframework.beans.factory.annotation.Autowired;

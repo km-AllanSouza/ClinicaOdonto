@@ -1,4 +1,4 @@
-package com.clinicaOdontologica.ClinicaOdonto.config.security;
+package com.clinicaOdontologica.ClinicaOdonto.configSecurity;
 
 import com.clinicaOdontologica.ClinicaOdonto.model.Usuario;
 import com.clinicaOdontologica.ClinicaOdonto.repository.UsuarioRepository;
