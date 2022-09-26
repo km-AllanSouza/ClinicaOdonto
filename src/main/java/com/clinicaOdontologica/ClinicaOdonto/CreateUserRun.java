@@ -11,7 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
-
 @Configuration
 public class CreateUserRun implements ApplicationRunner {
     @Autowired
@@ -33,7 +32,7 @@ public class CreateUserRun implements ApplicationRunner {
 
         //
         Usuario usuario1 = new Usuario();
-        usuario1.setUsername("mainuser");
+        usuario1.setUsername("teste1");
         usuario1.setPassword(encoder.encode("123456"));
         usuario1.setRoleList(usuario1Roles);
 

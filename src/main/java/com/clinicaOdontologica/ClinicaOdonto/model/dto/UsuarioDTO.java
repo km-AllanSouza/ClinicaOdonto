@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -15,13 +14,10 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UsuarioDTO {
-
     @NotEmpty
-    @NotBlank
     @Size(min = 6)
     private String username;
     @NotEmpty
-    @NotBlank
     @Size(min = 6)
     private String password;
 

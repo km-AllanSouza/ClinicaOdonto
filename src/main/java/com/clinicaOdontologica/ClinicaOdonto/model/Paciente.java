@@ -26,6 +26,7 @@ public class Paciente {
     @JoinColumn(name = "idEndereco")
     private Endereco endereco;
     private String cpf;
+
     @Temporal(TemporalType.DATE)
     @JsonFormat(pattern = "yyyy-mm-dd")
     private Date dataCadastro;

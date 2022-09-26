@@ -1,6 +1,6 @@
 package com.clinicaOdontologica.ClinicaOdonto.controller;
 
-import com.clinicaOdontologica.ClinicaOdonto.configSecurity.TokenService;
+import com.clinicaOdontologica.ClinicaOdonto.config.security.TokenService;
 import com.clinicaOdontologica.ClinicaOdonto.model.dto.TokenDTO;
 import com.clinicaOdontologica.ClinicaOdonto.model.dto.UsuarioDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +36,12 @@ public class AuthController {
 
             String token = tokenService.gerarToken(authentication);
 
-            TokenDTO tokenDTO = new TokenDTO(token, "bearer");
+            TokenDTO tokenDTO = new TokenDTO();
+            tokenDTO.setToken(token);
+            tokenDTO.setTipo("Bearer");
 
             return new ResponseEntity(tokenDTO, HttpStatus.OK);
-        } catch (AuthenticationException e) {
+        } catch (AuthenticationException exception) {
             return new ResponseEntity("Erro ao autenticar",HttpStatus.BAD_REQUEST);
         }
     }
