@@ -1,9 +1,11 @@
 package com.clinicaOdontologica.ClinicaOdonto.controller;
 
 import com.clinicaOdontologica.ClinicaOdonto.model.Consulta;
+import com.clinicaOdontologica.ClinicaOdonto.model.Horario;
 import com.clinicaOdontologica.ClinicaOdonto.model.Paciente;
 import com.clinicaOdontologica.ClinicaOdonto.model.dto.PacienteDTO;
 import com.clinicaOdontologica.ClinicaOdonto.service.ConsultaService;
+import com.clinicaOdontologica.ClinicaOdonto.service.HorarioService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,15 +23,21 @@ import java.util.Optional;
 public class ConsultaController {
     @Autowired
     ConsultaService service;
+    @Autowired
+    HorarioService serviceHorario;
 
     @PostMapping
     public ResponseEntity salvar(@RequestBody Consulta consulta) throws SQLException {
-        List<Consulta> listHorario = service.verificarHorario(consulta.getHorario(),consulta.getData(), consulta.getIdDentista().getId());
-        if (!listHorario.isEmpty()){
-            return new ResponseEntity<>("Horario indisponivel",HttpStatus.CONFLICT);
-        }
+        List<Horario> listHorarioValido = serviceHorario.buscarHorario(consulta.getHorario());
+        if (!listHorarioValido.isEmpty()){
+            List<Consulta> listHorario = service.verificarHorario(consulta.getHorario(),consulta.getData(), consulta.getIdDentista().getId());
+            if (!listHorario.isEmpty()){
+                return new ResponseEntity<>("Horario indisponivel",HttpStatus.CONFLICT);
+            }
             return new ResponseEntity(service.salvar(consulta), HttpStatus.OK);
 
+        }
+        return new ResponseEntity<>("O horario informado não condiz com os horarios de marcação do consultorio, consulte o gerente",HttpStatus.OK);
     }
 
     @GetMapping
