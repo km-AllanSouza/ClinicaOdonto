@@ -1,10 +1,10 @@
 package com.clinicaOdontologica.ClinicaOdonto.service;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import com.clinicaOdontologica.ClinicaOdonto.exception.ResourceNotFoundException;
 import com.clinicaOdontologica.ClinicaOdonto.model.Paciente;
 import com.clinicaOdontologica.ClinicaOdonto.model.dto.PacienteDTO;
-import com.clinicaOdontologica.ClinicaOdonto.service.PacienteService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.BooleanSupplier;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional

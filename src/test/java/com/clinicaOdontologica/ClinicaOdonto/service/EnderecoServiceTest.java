@@ -2,7 +2,6 @@ package com.clinicaOdontologica.ClinicaOdonto.service;
 
 import com.clinicaOdontologica.ClinicaOdonto.model.Endereco;
 import com.clinicaOdontologica.ClinicaOdonto.model.dto.EnderecoDTO;
-import com.clinicaOdontologica.ClinicaOdonto.service.EnderecoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
