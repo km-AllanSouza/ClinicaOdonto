@@ -33,13 +33,13 @@ public class Usuario implements UserDetails {
     @Size(min = 4)
     private String password;
 
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "idPaciente")
-//    private Paciente paciente;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idPaciente")
+    private Paciente paciente;
 
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn (name = "idDentista")
-//    private Dentista dentista;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn (name = "idDentista")
+    private Dentista dentista;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Role> roleList;

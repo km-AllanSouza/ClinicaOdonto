@@ -33,8 +33,35 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable().authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers(HttpMethod.POST,"/auth").permitAll()
-                .antMatchers(HttpMethod.GET,"/paciente").permitAll()
-                .antMatchers(HttpMethod.POST,"/paciente").permitAll()
+
+                .antMatchers(HttpMethod.GET,"/paciente").hasAuthority("USER")
+                .antMatchers(HttpMethod.GET,"/paciente").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.GET,"/paciente/buscarid").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST,"/paciente").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.PATCH,"/paciente").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.DELETE,"/paciente").hasAuthority("ADMIN")
+
+                .antMatchers(HttpMethod.GET,"/dentista").hasAuthority("USER")
+                .antMatchers(HttpMethod.GET,"/dentista").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.GET,"/dentista/buscarid").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST,"/dentista").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.PATCH,"/dentista").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.DELETE,"/dentista").hasAuthority("ADMIN")
+
+                .antMatchers(HttpMethod.GET,"/consulta").hasAuthority("USER")
+                .antMatchers(HttpMethod.GET,"/consulta").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.GET,"/consulta/buscarid").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST,"/consulta").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.PATCH,"/consulta").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.DELETE,"/consulta").hasAuthority("ADMIN")
+
+                .antMatchers(HttpMethod.GET,"/endereco").hasAuthority("USER")
+                .antMatchers(HttpMethod.GET,"/endereco").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.GET,"/endereco/buscarid").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST,"/endereco").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.PATCH,"/endereco").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.DELETE,"/endereco").hasAuthority("ADMIN")
+
                 .anyRequest().authenticated()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().addFilterBefore(autenticacaoViaTokenFilter, UsernamePasswordAuthenticationFilter.class);
