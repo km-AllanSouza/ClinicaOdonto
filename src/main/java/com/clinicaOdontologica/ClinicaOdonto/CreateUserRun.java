@@ -28,7 +28,10 @@ public class CreateUserRun implements ApplicationRunner {
 
         //
         List<Role> usuario1Roles = new ArrayList<>();
-        usuario1Roles.add(user);
+        usuario1Roles.add(admin);
+
+        List<Role> usuario2Roles = new ArrayList<>();
+        usuario2Roles.add(user);
 
         //
         Usuario usuario1 = new Usuario();
@@ -36,6 +39,13 @@ public class CreateUserRun implements ApplicationRunner {
         usuario1.setPassword(encoder.encode("123456"));
         usuario1.setRoleList(usuario1Roles);
 
+        //
+        Usuario usuario2 = new Usuario();
+        usuario2.setUsername("teste2");
+        usuario2.setPassword(encoder.encode("123456"));
+        usuario2.setRoleList(usuario2Roles);
+
         repository.save(usuario1);
+        repository.save(usuario2);
     }
 }

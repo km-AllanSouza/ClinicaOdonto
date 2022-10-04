@@ -11,4 +11,7 @@ import java.util.List;
 @Repository
 public interface ConsultaRepository extends JpaRepository<Consulta, Long> {
     List<Consulta> findByHorarioAndDataAndIdDentistaId(Time hora, Date data, Long idD);
+
+
+    List<Consulta> findByIdDentistaIdAndIdPacienteId(Long idD, Long idP);
 }
